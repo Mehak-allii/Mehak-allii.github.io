@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mehak Ali — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #FAFAF7;
+      --white: #FFFFFF;
+      --ink: #1A1A2E;
+      --ink-light: #4A4A6A;
+      --accent: #5B5EA6;
+      --accent-soft: #E8E9F5;
+      --accent-mid: #9B9CC4;
+      --border: #E4E4EE;
+      --tag-bg: #F0F0FA;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(250,250,247,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink-light);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      background: none; border: none; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--ink); border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .mobile-menu {
+      display: none; position: fixed; inset: 64px 0 0 0;
+      background: var(--cream); z-index: 99; flex-direction: column;
+      align-items: center; justify-content: center; gap: 2.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      text-decoration: none; color: var(--ink);
+      font-size: 1.5rem; font-weight: 500;
+    }
+
+    /* SECTIONS */
+    section { padding: 100px 5vw; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 1.2rem;
+    }
+    .section-sub {
+      color: var(--ink-light); font-size: 1.05rem;
+      max-width: 540px; margin-bottom: 3rem;
+    }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding-top: 120px;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent-soft); color: var(--accent);
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.35rem 0.85rem;
+      border-radius: 99px; margin-bottom: 1.8rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: inline-block;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 9vw, 6.5rem);
+      line-height: 0.95; letter-spacing: -2px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-name em {
+      font-style: normal; color: var(--accent);
+    }
+    .hero-desc {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--ink-light); max-width: 520px;
+      line-height: 1.7; margin-bottom: 2.5rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.6rem; border-radius: 8px;
+      font-size: 0.92rem; font-weight: 600;
+      text-decoration: none; transition: all 0.2s; cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+    }
+    .btn-primary:hover { background: #4a4d8f; transform: translateY(-1px); box-shadow: 0 4px 18px rgba(91,94,166,0.3); }
+    .btn-ghost {
+      background: transparent; color: var(--ink);
+      border: 1.5px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-scroll {
+      margin-top: 5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      color: var(--ink-light); font-size: 0.82rem; letter-spacing: 0.05em;
+    }
+    .scroll-line {
+      width: 40px; height: 1px; background: var(--accent-mid);
+    }
+
+    /* ABOUT */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: center;
+    }
+    .about-card {
+      background: var(--accent-soft);
+      border-radius: 20px; padding: 2.5rem;
+      position: relative; overflow: hidden;
+    }
+    .about-card::after {
+      content: 'MA';
+      font-family: 'DM Serif Display', serif;
+      font-size: 8rem; color: rgba(91,94,166,0.07);
+      position: absolute; bottom: -1.5rem; right: 1rem;
+      line-height: 1; pointer-events: none;
+    }
+    .about-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--accent); display: flex;
+      align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem; color: #fff;
+      margin-bottom: 1.5rem;
+    }
+    .about-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem; margin-bottom: 0.5rem;
+    }
+    .about-card .role {
+      color: var(--accent); font-weight: 600;
+      font-size: 0.85rem; letter-spacing: 0.05em;
+      text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .about-details { list-style: none; margin-top: 1.5rem; }
+    .about-details li {
+      display: flex; gap: 0.6rem;
+      font-size: 0.88rem; color: var(--ink-light);
+      margin-bottom: 0.6rem;
+    }
+    .about-details li span:first-child { color: var(--accent); font-weight: 600; min-width: 70px; }
+    .about-text p {
+      color: var(--ink-light); margin-bottom: 1.2rem;
+      font-size: 1rem; line-height: 1.8;
+    }
+    .lang-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .lang-chip {
+      background: var(--tag-bg); border: 1px solid var(--border);
+      border-radius: 6px; padding: 0.3rem 0.8rem;
+      font-size: 0.82rem; font-weight: 500; color: var(--ink-light);
+    }
+
+    /* SKILLS */
+    #skills { background: var(--cream); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.8rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .skill-card:hover { box-shadow: 0 8px 32px rgba(91,94,166,0.1); transform: translateY(-3px); }
+    .skill-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: var(--accent-soft); display: flex;
+      align-items: center; justify-content: center;
+      font-size: 1.2rem; margin-bottom: 1rem;
+    }
+    .skill-card h4 {
+      font-weight: 600; font-size: 0.95rem; margin-bottom: 0.4rem;
+    }
+    .skill-card p {
+      font-size: 0.82rem; color: var(--ink-light);
+    }
+    .skill-level {
+      margin-top: 0.8rem; height: 4px;
+      background: var(--accent-soft); border-radius: 99px; overflow: hidden;
+    }
+    .skill-level-fill {
+      height: 100%; background: var(--accent); border-radius: 99px;
+    }
+
+    /* PROJECTS */
+    #projects { background: var(--white); }
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.8rem;
+    }
+    .project-card {
+      background: var(--cream); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      transition: box-shadow 0.25s, transform 0.25s;
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover { box-shadow: 0 12px 40px rgba(91,94,166,0.13); transform: translateY(-4px); }
+    .project-thumb {
+      height: 160px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+      background: var(--accent-soft);
+      border-bottom: 1px solid var(--border);
+    }
+    .project-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .project-body h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem; margin-bottom: 0.5rem;
+    }
+    .project-body p {
+      font-size: 0.88rem; color: var(--ink-light);
+      line-height: 1.6; flex: 1; margin-bottom: 1.2rem;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
+    .tag {
+      background: var(--tag-bg); color: var(--accent);
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em;
+      text-transform: uppercase; padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+    }
+    .project-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.82rem; font-weight: 600; color: var(--accent);
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+    .project-link:hover { gap: 0.7rem; }
+
+    /* EXPERIENCE */
+    #experience { background: var(--cream); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: ''; position: absolute;
+      left: 6px; top: 4px; bottom: 4px;
+      width: 2px; background: var(--border);
+    }
+    .timeline-item { position: relative; margin-bottom: 2.5rem; }
+    .timeline-dot {
+      position: absolute; left: -2rem; top: 4px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--white); border: 2.5px solid var(--accent);
+    }
+    .timeline-item h4 { font-weight: 600; font-size: 1rem; }
+    .timeline-item .org {
+      color: var(--accent); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem;
+    }
+    .timeline-item .period {
+      font-size: 0.78rem; color: var(--ink-light);
+      margin-bottom: 0.6rem;
+    }
+    .timeline-item p { font-size: 0.9rem; color: var(--ink-light); line-height: 1.6; }
+
+    /* CONTACT */
+    #contact { background: var(--white); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .contact-item {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .contact-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--accent-soft); display: flex;
+      align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .contact-item h5 {
+      font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--ink-light);
+      margin-bottom: 0.15rem; font-weight: 600;
+    }
+    .contact-item a, .contact-item p {
+      font-size: 0.92rem; font-weight: 500; color: var(--ink);
+      text-decoration: none;
+    }
+    .contact-item a:hover { color: var(--accent); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%; padding: 0.8rem 1rem;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      background: var(--cream); color: var(--ink);
+      transition: border-color 0.2s; outline: none; resize: vertical;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: var(--accent); }
+    .contact-form textarea { min-height: 120px; }
+
+    /* FOOTER */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,0.5);
+      text-align: center; padding: 2rem 5vw;
+      font-size: 0.82rem;
+    }
+    footer span { color: var(--accent-mid); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      section { padding: 80px 6vw; }
+    }
+    @media (max-width: 480px) {
+      .hero-name { letter-spacing: -1px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Mehak Ali</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#skills" onclick="toggleMenu()">Skills</a>
+  <a href="#projects" onclick="toggleMenu()">Projects</a>
+  <a href="#experience" onclick="toggleMenu()">Experience</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">Available for opportunities</div>
+  <h1 class="hero-name">Mehak<br/><em>Ali</em></h1>
+  <p class="hero-desc">
+    Software Engineer & AI enthusiast at FAST NUCES — building AI-powered solutions,
+    full-stack web apps, and beautiful user interfaces.
+  </p>
+  <div class="hero-btns">
+    <a href="#projects" class="btn btn-primary">View Projects →</a>
+    <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+  </div>
+  <div class="hero-scroll">
+    <span class="scroll-line"></span>
+    scroll to explore
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label">Who I am</p>
+  <div class="about-grid">
+    <div class="about-card">
+      <div class="about-avatar">M</div>
+      <h3>Mehak Ali</h3>
+      <p class="role">Software Engineer · AI Expert · Full Stack Dev</p>
+      <ul class="about-details">
+        <li><span>📍 Location</span> <span>Rawalpindi, Pakistan</span></li>
+        <li><span>🎓 Study</span> <span>FAST NUCES, Islamabad (2024–2028)</span></li>
+        <li><span>📧 Email</span> <span>mehakalimehak003@gmail.com</span></li>
+        <li><span>📞 Phone</span> <span>+92 332-5217647</span></li>
+      </ul>
+      <div class="lang-row">
+        <span class="lang-chip">🇬🇧 English — C1</span>
+        <span class="lang-chip">🇵🇰 Urdu — Native</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <h2 class="section-title">Crafting smart software that matters.</h2>
+      <p>
+        I'm a Software Engineering student at FAST NUCES with a passion for building
+        AI-powered applications, full-stack web platforms, and visually compelling interfaces.
+      </p>
+      <p>
+        Beyond code, I bring skills in graphic design, video editing, social media management,
+        and digital marketing — giving me a rare ability to bridge the technical and creative worlds.
+      </p>
+      <p>
+        I've built everything from chatbots and management portals to ride-sharing clones,
+        and I've gained real-world experience through freelance work and an internship at
+        Attock Refinery Limited.
+      </p>
+      <a href="#contact" class="btn btn-primary" style="margin-top:1rem;">Let's collaborate →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">What I work with</p>
+  <h2 class="section-title">Skills & Tools</h2>
+  <p class="section-sub">A blend of technical depth and creative breadth.</p>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">⚡</div>
+      <h4>JavaScript / Node.js / React</h4>
+      <p>Frontend and backend web development with modern JS frameworks.</p>
+      <div class="skill-level"><div class="skill-level-fill" style="width:85%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🤖</div>
+      <h4>AI & Chatbot Development</h4>
+      <p>Building AI-powered solutions and intelligent conversational agents.</p>
+      <div class="skill-level"><div class="skill-level-fill" style="width:80%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">💻</div>
+      <h4>C / C++</h4>
+      <p>Advanced proficiency — data structures, algorithms, and system-level projects.</p>
+      <div class="skill-level"><div class="skill-level-fill" style="width:90%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📱</div>
+      <h4>Flutter</h4>
+      <p>Cross-platform mobile app development.</p>
+      <div class="skill-level"><div class="skill-level-fill" style="width:65%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🎨</div>
+      <h4>UI Design & Figma</h4>
+      <p>Designing clean and user-centric interfaces in Figma and Canva.</p>
+      <div class="skill-level"><div class="skill-level-fill" style="width:70%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📣</div>
+      <h4>Graphic Design & Social Media</h4>
+      <p>Creating content, managing accounts, and growing audiences.</p>
+      <div class="skill-level"><div class="skill-level-fill" style="width:90%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🎬</div>
+      <h4>Video Editing & Videography</h4>
+      <p>Professional-level video production and post-production work.</p>
+      <div class="skill-level"><div class="skill-level-fill" style="width:90%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🗂️</div>
+      <h4>Project Management</h4>
+      <p>Leading teams and delivering projects with bold communication skills.</p>
+      <div class="skill-level"><div class="skill-level-fill" style="width:85%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">What I've built</p>
+  <h2 class="section-title">Projects</h2>
+  <p class="section-sub">Click any project to explore it further.</p>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-thumb">🤖</div>
+      <div class="project-body">
+        <h3>AI-Powered Tour Chatbot</h3>
+        <p>A smart chatbot built for a tour company that responds intelligently based on each client's trip preferences, automating customer interaction.</p>
+        <div class="tags">
+          <span class="tag">AI</span>
+          <span class="tag">Chatbot</span>
+          <span class="tag">NLP</span>
+        </div>
+        <a href="#contact" class="project-link">Request demo →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb">☕</div>
+      <div class="project-body">
+        <h3>Café Management System</h3>
+        <p>A QR-code-based ordering portal for cafés. Customers scan a table code to place orders directly, eliminating billing queues during peak hours.</p>
+        <div class="tags">
+          <span class="tag">Web App</span>
+          <span class="tag">QR Code</span>
+          <span class="tag">Full Stack</span>
+        </div>
+        <a href="#contact" class="project-link">Learn more →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb">🌊</div>
+      <div class="project-body">
+        <h3>Ocean Navigation System</h3>
+        <p>A C/C++ based ocean navigation simulation built as a Data Structures project, demonstrating graph traversal and pathfinding algorithms.</p>
+        <div class="tags">
+          <span class="tag">C++</span>
+          <span class="tag">Data Structures</span>
+          <span class="tag">Algorithms</span>
+        </div>
+        <a href="#contact" class="project-link">Learn more →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb">🆘</div>
+      <div class="project-body">
+        <h3>Disaster MIS Portal</h3>
+        <p>A management information system for coordinating natural disaster resources — built as a Database Engineering project with real-world impact in mind.</p>
+        <div class="tags">
+          <span class="tag">Database</span>
+          <span class="tag">MIS</span>
+          <span class="tag">Full Stack</span>
+        </div>
+        <a href="#contact" class="project-link">Learn more →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb">🚗</div>
+      <div class="project-body">
+        <h3>InDrive Clone — Women Only</h3>
+        <p>A women-focused ride-sharing platform with face verification and live GPS tracking for safety. A fully functional InDrive clone built for empowerment.</p>
+        <div class="tags">
+          <span class="tag">Face Verification</span>
+          <span class="tag">Live Tracking</span>
+          <span class="tag">Mobile</span>
+        </div>
+        <a href="#contact" class="project-link">Learn more →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">My journey</p>
+  <h2 class="section-title">Experience</h2>
+  <p class="section-sub">Real-world work across tech, design, and media.</p>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <h4>IT Intern</h4>
+      <p class="org">Attock Refinery Limited — Rawalpindi</p>
+      <p class="period">1.5 months · Present</p>
+      <p>Hands-on IT internship at one of Pakistan's leading refineries, gaining enterprise-level technical exposure.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <h4>Social Media Manager</h4>
+      <p class="org">Instagram Blogger (23k+ followers)</p>
+      <p class="period">Freelance · Present</p>
+      <p>Managing and growing an Instagram account, creating content strategy and engagement campaigns for a creator with 23,000+ followers.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <h4>Video Editor</h4>
+      <p class="org">Freelance — Salon Client</p>
+      <p class="period">Freelance · Present</p>
+      <p>Professional video editing for a salon's marketing content — reels, promotional videos, and social media clips.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <h4>Graphic Designer</h4>
+      <p class="org">Multiple Organizations</p>
+      <p class="period">Freelance · Present</p>
+      <p>Designing posts, stories, and brand visuals for various organizations using Canva and Figma.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <h4>BSc Software Engineering</h4>
+      <p class="org">FAST NUCES — Islamabad</p>
+      <p class="period">Aug 2024 – Aug 2028</p>
+      <p>Pursuing a Software Engineering degree at one of Pakistan's top CS universities.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Get in touch</p>
+  <h2 class="section-title">Let's work together.</h2>
+  <div class="contact-grid">
+    <div>
+      <p class="section-sub">Whether you have a project idea, a collaboration in mind, or just want to say hi — my inbox is open.</p>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <h5>Email</h5>
+          <a href="mailto:mehakalimehak003@gmail.com">mehakalimehak003@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <h5>Phone</h5>
+          <a href="tel:+923325217647">+92 332-5217647</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <h5>Location</h5>
+          <p>Rawalpindi, Pakistan</p>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <input type="text" placeholder="Your name" required/>
+        <input type="email" placeholder="Your email" required/>
+      </div>
+      <input type="text" placeholder="Subject"/>
+      <textarea placeholder="Your message..."></textarea>
+      <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send Message →</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>Designed & built by <span>Mehak Ali</span> · © 2025 · All rights reserved.</p>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = 'Message sent ✓';
+    btn.style.background = '#3a9e6e';
+    setTimeout(() => {
+      btn.textContent = 'Send Message →';
+      btn.style.background = '';
+      e.target.reset();
+    }, 3000);
+  }
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.skill-card, .project-card, .timeline-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
